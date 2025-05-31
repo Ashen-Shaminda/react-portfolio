@@ -1,0 +1,30 @@
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 139.59.37.136
+          username: root
+          key: -----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACAifsB9+X+y3iBc3UVxMWGvI3GQzeOOvizZWP8ntmbS4wAAAIiKepI5inqS
+OQAAAAtzc2gtZWQyNTUxOQAAACAifsB9+X+y3iBc3UVxMWGvI3GQzeOOvizZWP8ntmbS4w
+AAAEBPs5xHugT8gz1SvQuQrKkDJnAEjqSnz3KKP+wpGxbiLCJ+wH35f7LeIFzdRXExYa8j
+cZDN446+LNlY/ye2ZtLjAAAAAAECAwQF
+-----END OPENSSH PRIVATE KEY-----
+
+          script: |
+            cd /root/your-repo
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
