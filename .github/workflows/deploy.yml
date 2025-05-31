@@ -20,7 +20,7 @@ jobs:
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
-            cd /root/your-repo
+            cd /root/react-portfolio
             git pull origin main
             docker-compose down
             docker-compose up -d --build
